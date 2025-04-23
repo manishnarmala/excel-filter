@@ -1,0 +1,74 @@
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to right, #c2e9fb, #a1c4fd);
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 30px auto;
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+  color: #333;
+}
+
+.upload-box {
+  border: 2px dashed #007bff;
+  border-radius: 10px;
+  padding: 30px;
+  text-align: center;
+  margin-bottom: 20px;
+  background-color: #f9f9f9;
+}
+
+.upload-box p {
+  margin-bottom: 10px;
+  color: #555;
+}
+
+select {
+  width: 100%;
+  padding: 8px;
+  margin: 8px 0 16px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+button {
+  margin-right: 10px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  border: none;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.preview table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.preview th,
+.preview td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.preview th {
+  background-color: #007bff;
+  color: white;
+}
