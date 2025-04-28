@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import * as XLSX from "xlsx";
 import Select from "react-select";
 import { saveAs } from "file-saver";
+import "./App.css";
 
 const App = () => {
   const [originalData, setOriginalData] = useState([]);
@@ -15,50 +16,28 @@ const App = () => {
   const [activeFilters, setActiveFilters] = useState([]);
   const [isDragging, setIsDragging] = useState(false);
 
-  const buttonStyles = {
-    base: {
-      color: "white",
-      padding: "12px 20px",
-      border: "none",
-      borderRadius: "6px",
-      cursor: "pointer",
-      transition: "all 0.2s ease",
-      fontWeight: "600",
-      textTransform: "uppercase",
-      fontSize: "0.9rem",
-      boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
-      "&:hover": {
-        transform: "translateY(-1px)",
-        boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
-      },
-    },
-    green: { background: "#4caf50" },
-    red: { background: "#f44336" },
-    blue: { background: "#2196f3" },
-    purple: { background: "#673ab7" },
-  };
-
   const selectStyles = {
     control: (base) => ({
       ...base,
       borderRadius: "6px",
-      border: "1px solid #e0e0e0",
-      boxShadow: "0 1px 3px rgba(0,0,0,0.05)",
+      border: "1px solid #D2665A",
+      boxShadow: "0 1px 3px rgba(184, 33, 50, 0.05)",
       "&:hover": {
-        border: "1px solid #2196f3",
+        border: "1px solid #B82132",
       },
     }),
     option: (base, state) => ({
       ...base,
-      backgroundColor: state.isSelected ? "#2196f3" : "white",
+      backgroundColor: state.isSelected ? "#B82132" : "white",
+      color: state.isSelected ? "white" : "#333",
       padding: "10px 15px",
       "&:hover": {
-        backgroundColor: state.isSelected ? "#2196f3" : "#f5f5f5",
+        backgroundColor: state.isSelected ? "#B82132" : "#F6DED8",
       },
     }),
     menu: (base) => ({
       ...base,
-      boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
+      boxShadow: "0 4px 6px rgba(184, 33, 50, 0.1)",
       borderRadius: "6px",
     }),
   };
@@ -112,15 +91,13 @@ const App = () => {
   };
 
   const handlePreview = () => {
-    setShowPreview(prev => !prev); 
+    setShowPreview(prev => !prev);
   };
 
   const handleFilterColumnSelect = (selected) => {
     setFilterColumn(selected?.value || null);
     if (selected) {
-      const uniqueValues = [
-        ...new Set(filteredData.map((row) => row[selected.value])),
-      ];
+      const uniqueValues = [...new Set(filteredData.map((row) => row[selected.value]))];
       setFilterOptions(uniqueValues.map((val) => ({ label: val, value: val })));
     }
   };
@@ -137,17 +114,12 @@ const App = () => {
   };
 
   const resetFilters = () => {
-    // Reset filtered data to original data
     setFilteredData(originalData);
-    
-    // Reset all column and filter related states
     setSelectedColumns([]);
     setActiveFilters([]);
     setFilterColumn(null);
     setFilterValues([]);
     setFilterOptions([]);
-    
-    // Hide the preview section
     setShowPreview(false);
   };
 
@@ -169,39 +141,11 @@ const App = () => {
   };
 
   return (
-    <div
-      style={{
-        padding: "40px",
-        fontFamily: "'Segoe UI', Arial, sans-serif",
-        background: "linear-gradient(to bottom, #f4f7fa, #e8eef5)",
-        minHeight: "100vh",
-        maxWidth: "1200px",
-        margin: "0 auto",
-      }}
-    >
-      <h1 style={{ 
-        textAlign: "center", 
-        color: "#1a237e",
-        fontSize: "2.5rem",
-        marginBottom: "40px",
-        fontWeight: "600"
-      }}>
-        Excel Manipulation & Filtering Tool
-      </h1>
+    <div className="container">
+      <h1>Excel Manipulation & Filtering Tool</h1>
 
       <div
-        style={{
-          margin: "30px auto",
-          maxWidth: "600px",
-          textAlign: "center",
-          padding: "40px",
-          border: `2px dashed ${isDragging ? "#2196f3" : "#ccc"}`,
-          borderRadius: "10px",
-          background: "white",
-          transition: "all 0.2s ease",
-          cursor: "pointer",
-          boxShadow: isDragging ? "0 0 10px rgba(33,150,243,0.3)" : "none",
-        }}
+        className={`upload-box ${isDragging ? 'dragging' : ''}`}
         onDrop={handleDrop}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
@@ -210,25 +154,15 @@ const App = () => {
           type="file"
           accept=".xlsx, .xls"
           onChange={handleFileUpload}
-          style={{ marginBottom: "15px" }}
+          className="file-input"
         />
-        <p style={{ color: "#666", margin: "10px 0" }}>
-          or drag and drop Excel file here
-        </p>
+        <p>or drag and drop Excel file here</p>
       </div>
 
       {columns.length > 0 && (
-        <div style={{ 
-          background: "white", 
-          padding: "30px",
-          borderRadius: "10px",
-          boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-          margin: "20px 0"
-        }}>
-          <div style={{ marginBottom: "20px" }}>
-            <label style={{ display: "block", marginBottom: "8px", color: "#333" }}>
-              Select Columns to Include:
-            </label>
+        <div className="filter-section">
+          <div className="select-container">
+            <label>Select Columns to Include:</label>
             <Select
               options={[{ label: "Select All", value: "all" }, ...columns]}
               isMulti
@@ -239,10 +173,8 @@ const App = () => {
             />
           </div>
 
-          <div style={{ marginBottom: "20px" }}>
-            <label style={{ display: "block", marginBottom: "8px", color: "#333" }}>
-              Filter by Column:
-            </label>
+          <div className="select-container">
+            <label>Filter by Column:</label>
             <Select
               options={selectedColumns}
               onChange={handleFilterColumnSelect}
@@ -252,10 +184,8 @@ const App = () => {
           </div>
 
           {filterColumn && (
-            <div style={{ marginBottom: "20px" }}>
-              <label style={{ display: "block", marginBottom: "8px", color: "#333" }}>
-                Select Filter Values:
-              </label>
+            <div className="select-container">
+              <label>Select Filter Values:</label>
               <Select
                 options={filterOptions}
                 isMulti
@@ -266,111 +196,44 @@ const App = () => {
             </div>
           )}
 
-          <div style={{ display: "flex", gap: "10px", marginBottom: "20px" }}>
-            <button
-              onClick={applyFilter}
-              style={{
-                ...buttonStyles.base,
-                ...buttonStyles.green,
-              }}
-            >
+          <div className="button-group">
+            <button className="btn primary" onClick={applyFilter}>
               Apply Filter
             </button>
-            <button
-              onClick={resetFilters}
-              style={{
-                ...buttonStyles.base,
-                ...buttonStyles.red,
-              }}
-            >
+            <button className="btn secondary" onClick={resetFilters}>
               Reset Filters
             </button>
-            <button
-  onClick={handlePreview}
-  style={{
-    ...buttonStyles.base,
-    ...buttonStyles.blue,
-  }}
->
-  {showPreview ? 'Hide Preview' : 'Show Preview'}
-</button>
+            <button className="btn accent" onClick={handlePreview}>
+              {showPreview ? 'Hide Preview' : 'Show Preview'}
+            </button>
           </div>
         </div>
       )}
 
       {showPreview && selectedColumns.length > 0 && (
-        <div style={{
-          background: "white",
-          padding: "30px",
-          borderRadius: "10px",
-          boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-          margin: "20px 0"
-        }}>
-          <h3 style={{ 
-            color: "#1a237e",
-            marginBottom: "20px",
-            fontSize: "1.5rem"
-          }}>Preview</h3>
-          <div style={{ overflowX: "auto", marginBottom: "20px" }}>
-            <table style={{
-              width: "100%",
-              borderCollapse: "collapse",
-              background: "white",
-              borderRadius: "8px",
-              overflow: "hidden",
-              boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
-            }}>
+        <div className="preview-section">
+          <h3>Preview</h3>
+          <div className="table-container">
+            <table>
               <thead>
                 <tr>
                   {selectedColumns.map((col) => (
-                    <th
-                      key={col.value}
-                      style={{
-                        border: "1px solid #eee",
-                        padding: "12px 15px",
-                        backgroundColor: "#f8f9fa",
-                        fontWeight: "600",
-                        textAlign: "left",
-                      }}
-                    >
-                      {col.label}
-                    </th>
+                    <th key={col.value}>{col.label}</th>
                   ))}
                 </tr>
               </thead>
               <tbody>
                 {filteredData.map((row, idx) => (
-                  <tr 
-                    key={idx}
-                    style={{
-                      '&:hover': {
-                        backgroundColor: "#f5f5f5"
-                      }
-                    }}
-                  >
+                  <tr key={idx}>
                     {selectedColumns.map((col) => (
-                      <td
-                        key={col.value}
-                        style={{
-                          border: "1px solid #eee",
-                          padding: "12px 15px",
-                        }}
-                      >
-                        {row[col.value]}
-                      </td>
+                      <td key={col.value}>{row[col.value]}</td>
                     ))}
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-          <button
-            onClick={downloadExcel}
-            style={{
-              ...buttonStyles.base,
-              ...buttonStyles.purple,
-            }}
-          >
+          <button className="btn primary" onClick={downloadExcel}>
             Download as Excel
           </button>
         </div>
