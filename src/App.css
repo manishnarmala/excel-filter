@@ -1,74 +1,147 @@
 body {
-  font-family: Arial, sans-serif;
-  background: linear-gradient(to right, #c2e9fb, #a1c4fd);
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: linear-gradient(135deg, #F6DED8 0%, #F2B28C 100%);
   margin: 0;
   padding: 0;
+  min-height: 100vh;
 }
 
 .container {
-  max-width: 1000px;
-  margin: 30px auto;
-  background: white;
-  padding: 25px;
-  border-radius: 12px;
-  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
 }
 
-h2 {
+h1 {
   text-align: center;
-  color: #333;
+  color: #B82132;
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+  font-weight: 600;
 }
 
 .upload-box {
-  border: 2px dashed #007bff;
+  margin: 30px auto;
+  max-width: 600px;
+  padding: 40px;
+  border: 2px dashed #D2665A;
   border-radius: 10px;
-  padding: 30px;
+  background: white;
   text-align: center;
-  margin-bottom: 20px;
-  background-color: #f9f9f9;
-}
-
-.upload-box p {
-  margin-bottom: 10px;
-  color: #555;
-}
-
-select {
-  width: 100%;
-  padding: 8px;
-  margin: 8px 0 16px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-}
-
-button {
-  margin-right: 10px;
-  padding: 10px 20px;
-  background-color: #007bff;
-  border: none;
-  color: white;
-  border-radius: 6px;
+  transition: all 0.2s ease;
   cursor: pointer;
 }
 
-button:hover {
-  background-color: #0056b3;
+.upload-box.dragging {
+  border-color: #B82132;
+  box-shadow: 0 0 10px rgba(184, 33, 50, 0.2);
 }
 
-.preview table {
+.upload-box p {
+  color: #666;
+  margin: 10px 0;
+}
+
+.file-input {
+  margin-bottom: 15px;
+}
+
+.filter-section {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(184, 33, 50, 0.1);
+  margin: 20px 0;
+}
+
+.select-container {
+  margin-bottom: 20px;
+}
+
+.select-container label {
+  display: block;
+  margin-bottom: 8px;
+  color: #B82132;
+  font-weight: 500;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.btn {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(184, 33, 50, 0.1);
+}
+
+.btn.primary {
+  background-color: #B82132;
+  color: white;
+}
+
+.btn.secondary {
+  background-color: #D2665A;
+  color: white;
+}
+
+.btn.accent {
+  background-color: #F2B28C;
+  color: #B82132;
+}
+
+.preview-section {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(184, 33, 50, 0.1);
+  margin: 20px 0;
+}
+
+.preview-section h3 {
+  color: #B82132;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+}
+
+.table-container {
+  overflow-x: auto;
+  margin-bottom: 20px;
+}
+
+table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
-.preview th,
-.preview td {
-  padding: 10px;
-  border: 1px solid #ddd;
-  text-align: left;
-}
-
-.preview th {
-  background-color: #007bff;
+th {
+  background-color: #B82132;
   color: white;
+  padding: 12px 15px;
+  text-align: left;
+  font-weight: 600;
+}
+
+td {
+  padding: 12px 15px;
+  border: 1px solid #F6DED8;
+}
+
+tr:hover {
+  background-color: #F6DED8;
 }
